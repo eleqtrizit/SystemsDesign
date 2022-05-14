@@ -2,7 +2,6 @@
 A curated a list of resources for someone trying to crack a software development or site reliability engineer (SRE) interview.  
 
 ## Coding
-
 ### Blind 75
 Top 75 coding questions, as identified posts on the app Blind.  
 
@@ -42,7 +41,6 @@ How to tackle the interview systematically.
 
 
 ## Designing Data Intensive Applications
-
 This section is based on the book published by O'Reilly. [PDF](https://github.com/jeffrey-xiao/papers/blob/master/textbooks/designing-data-intensive-applications.pdf)
 
 This book is a must-read. It gives you a high level understanding of different technology, including the idea behind it, the pros and cons, and the problem it is trying to solve. A great book for practitioners who want to learn all the essential concepts quickly.

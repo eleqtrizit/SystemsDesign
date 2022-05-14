@@ -9,17 +9,22 @@
     font-weight: 700!important;
     color: black;
     text-decoration: underline;
+    line-height: 32px !important;
+    letter-spacing: 0.02em;
 }
 
 
 .md-typeset h2{
     font-size: 28px !important;
     font-weight: 700!important;
+    line-height: 28px !important;
+    letter-spacing: 0.02em;
 }
 
 .md-typeset h3{
     font-size: 20px !important;
     font-weight: 700!important;
+    line-height: 20px !important;
 }
 
 .md-nav {
