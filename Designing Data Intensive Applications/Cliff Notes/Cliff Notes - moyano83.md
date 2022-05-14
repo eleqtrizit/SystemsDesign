@@ -21,7 +21,6 @@ From moyano83 on github
 ### Thinking About Data Systems
 
 The three concerns that are important in most software systems are:
-
     * Reliability: The system should continue to work correctly (even performant) even in the face of adversity 
     * Scalability: Scalability is the term we use to describe a system's ability to cope with increased load
     * Maintainability: Different people should be able to work productively on the system
