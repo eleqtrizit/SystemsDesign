@@ -2,6 +2,8 @@ site_name: Systems Design
 
 theme:
   name: "material"
+  font:
+    text: Inter
   palette:
     # Light mode
     - media: "(prefers-color-scheme: light)"
