@@ -10,6 +10,18 @@ theme:
       scheme: default
       primary: indigo
       accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: yellow
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
 
 # Extensions
 markdown_extensions:
