@@ -1,5 +1,5 @@
 # Systems Design and Coding
-A curated a list of resources for someone trying to crack a software development or site reliability engineer (SRE) interview.
+A curated a list of resources for someone trying to crack a software development or site reliability engineer (SRE) interview.  
 
 ## Coding
 
@@ -29,15 +29,19 @@ The System Design Primer Github page is the open-sourced bible on this topic.  I
 Related Notes:
 
 [[CAP Theorum]]
+
 Any distributed data store can have 2 of these 3 things, Consistency, Availability, Partition Tolerance.  Understand what these mean to choose the right data store for a project.
 
 [[Distibuted System Fundamentals]]
+
 TLDR summary of ACID, Replication, Sync/Async, Consensus, Partitioning, Distributed transactions, and Storage
 
 [[How to Design Large Scale Systems]]
+
 Quick list of considerations.
 
 [[System Design Interview Steps]]
+
 How to tackle the interview systematically.
 
 
@@ -98,7 +102,8 @@ This book is a must-read. It gives you a high level understanding of different t
 [[What happens when you type google.com into a browser]]
 
 
-# Page Template
+## Extras
+[Github Repo for this site](https://github.com/eleqtrizit/SystemsDesign)
 
-**Published to Github Pages**: [jobindj/obsidian-publish-mkdocs](https://github.com/jobindj/obsidian-publish-mkdocs)
+**Published to Github Pages via**: [jobindj/obsidian-publish-mkdocs](https://github.com/jobindj/obsidian-publish-mkdocs)
 **Theme**: [Material](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/)
