@@ -26,22 +26,18 @@ Coding problems categorized by company.
 ## System Design Primer
 The System Design Primer Github page is the open-sourced bible on this topic.  It comes with flashcards, mock interviews (w/solutions), and much more.
 
-Related Notes:
+Related Notes...
 
-[[CAP Theorum]]
-
+### [[CAP Theorum]]
 Any distributed data store can have 2 of these 3 things, Consistency, Availability, Partition Tolerance.  Understand what these mean to choose the right data store for a project.
 
-[[Distibuted System Fundamentals]]
-
+### [[Distibuted System Fundamentals]]
 TLDR summary of ACID, Replication, Sync/Async, Consensus, Partitioning, Distributed transactions, and Storage
 
-[[How to Design Large Scale Systems]]
-
+### [[How to Design Large Scale Systems]]
 Quick list of considerations.
 
-[[System Design Interview Steps]]
-
+### [[System Design Interview Steps]]
 How to tackle the interview systematically.
 
 
