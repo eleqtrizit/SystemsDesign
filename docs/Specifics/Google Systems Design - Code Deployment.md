@@ -2,6 +2,7 @@
 Must be global and fast
 
 ### Deployment from master to global
+```
 Questions asked:
 * Assume it has already been tested and reviewed. 
 * No. of machines: 100,000's of machines all over the world in n number of regions.
@@ -69,5 +70,4 @@ Actions
 			* Every peer has a key/value system that is watching for changes
 			* If value is found, it starts downloading via bittorrent
 	* How do peers know to not build over each other?
-
-
+```
