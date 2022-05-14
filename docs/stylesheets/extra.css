@@ -5,19 +5,19 @@
 
 .md-typeset h1{
     font-size: 32px !important;
-    font-weight: 700;
+    font-weight: 700!important;
     color: black;
 }
 
 
 .md-typeset h2{
     font-size: 28px !important;
-    font-weight: 700;
+    font-weight: 700!important;
 }
 
 .md-typeset h3{
     font-size: 20px !important;
-    font-weight: 700;
+    font-weight: 700!important;
 }
 
 .md-nav {
