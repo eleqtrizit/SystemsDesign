@@ -39,4 +39,5 @@
 [data-md-color-scheme=slate] {
     --md-default-fg-color--light: hsla(var(--md-hue),75%,90%,0.62)
     --md-typeset-a-color: #e7eafc;
+    --md-default-fg-color: #4051b5
 }
