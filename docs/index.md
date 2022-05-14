@@ -1,11 +1,7 @@
-# Obsidian Notes
+# Systems Design Notes and Resources
 
-Publish your public notes with MkDocs
+## Designing Data Intensive Applications
 
-## Hello World!
+This section is based on the book published by O'Reilly. [PDF](https://github.com/jeffrey-xiao/papers/blob/master/textbooks/designing-data-intensive-applications.pdf)
 
-The `index.md` in the `/docs` folder is the homepage you see here.
 
-The folders in `/docs` appear as the main sections on the navigation bar.
-
-The notes appear as pages within these sections. For example, [[Note 1]] in `Topic 1`
