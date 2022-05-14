@@ -1,16 +1,17 @@
 .md-typeset {
     font-size: 15px !important;
     line-height: 1.45 !important;
-    font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
 }
 
 .md-typeset h1{
     font-size: 32px !important;
     font-weight: 700!important;
-    color: black;
     text-decoration: underline;
     line-height: 32px !important;
     letter-spacing: 0.02em;
+    margin: 0 0 10px 0;
+    border-bottom: solid 1px #e1e1e1;
 }
 
 
@@ -19,6 +20,7 @@
     font-weight: 700!important;
     line-height: 28px !important;
     letter-spacing: 0.02em;
+    border-bottom: solid 1px #e1e1e1;
 }
 
 .md-typeset h3{
