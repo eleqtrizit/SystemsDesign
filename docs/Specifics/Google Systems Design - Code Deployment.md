@@ -1,8 +1,8 @@
-# Google Systems Design * Code Deployment
+# Google Systems Design - Code Deployment
 Must be global and fast
 
 ### Deployment from master to global
-**Questions asked:
+Questions asked:
 * Assume it has already been tested and reviewed. 
 * No. of machines: 100,000's of machines all over the world in n number of regions.
 * Is it internal or external service?
@@ -13,13 +13,13 @@ Must be global and fast
 * Availability target is 99 or 99.9%
 * How big are the binaries?  Say 10GB.
 
-**Requirements
+Requirements
 * Trigger build
 * Builds the binary
 * Deploys the binary effeciently
 * 
 
-**Actions
+Actions
 * Trigger build using SHA from commits
 	* Commits are FIFO to create binaries
 	* Want to persist the status of builds in case of system disaster
@@ -71,4 +71,3 @@ Must be global and fast
 	* How do peers know to not build over each other?
 
 
-Queue 
