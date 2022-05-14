@@ -28,16 +28,16 @@ The System Design Primer Github page is the open-sourced bible on this topic.  I
 Related Notes...
 
 ### [[CAP Theorum]]
-Any distributed data store can have 2 of these 3 things, Consistency, Availability, Partition Tolerance.  Understand what these mean to choose the right data store for a project.
+(Dev, SRE) Any distributed data store can have 2 of these 3 things, Consistency, Availability, Partition Tolerance.  Understand what these mean to choose the right data store for a project.
 
 ### [[Distibuted System Fundamentals]]
-TLDR summary of ACID, Replication, Sync/Async, Consensus, Partitioning, Distributed transactions, and Storage
+(Dev, SRE) TLDR summary of ACID, Replication, Sync/Async, Consensus, Partitioning, Distributed transactions, and Storage
 
 ### [[How to Design Large Scale Systems]]
-Quick list of considerations.
+(Dev, SRE) Quick list of considerations.
 
 ### [[System Design Interview Steps]]
-How to tackle the interview systematically.
+(Dev, SRE) How to tackle the interview systematically.
 
 
 ## Designing Data Intensive Applications
@@ -61,39 +61,39 @@ This book is a must-read. It gives you a high level understanding of different t
 
 
 ## Specific Concepts/Resources
-[[Asynchronism]]
+[[Asynchronism]] (Dev, SRE)
 
-[[Caching]]
+[[Caching]] (Dev, SRE)
 
-[[Databases]]
+[[Databases]] (Dev, SRE)
 
-[[File Systems]]
+[[File Systems]] (SRE)
 
-[[Google Systems Design - Code Deployment]]
+[[Google Systems Design - Code Deployment]] (Dev, SRE)
 
-[[HTTP]]
+[[HTTP]] (SRE)
 
-[[Linux Interview Questions]]
+[[Linux Interview Questions]] (SRE)
 
-[[Linux Networking]]
+[[Linux Networking]] (SRE)
 
-[[Linux OS Internals]]
+[[Linux OS Internals]] (SRE)
 
-[[Load Balancers]]
+[[Load Balancers]] (SRE)
 
-[[Networking]]
+[[Networking]] (SRE)
 
-[[SRE Interview Questions]]
+[[SRE Interview Questions]] (SRE)
 
-[[SSH]]
+[[SSH]] (SRE)
 
-[[Systems Design Template]]
+[[Systems Design Template]] (Dev, SRE)
 
-[[Troubleshooting via Metrics]]
+[[Troubleshooting via Metrics]] (SRE)
 
-[[Unix Processes]]
+[[Unix Processes]] (SRE)
 
-[[What happens when you type google.com into a browser]]
+[[What happens when you type google.com into a browser]] (SRE)
 
 
 ## Extras
