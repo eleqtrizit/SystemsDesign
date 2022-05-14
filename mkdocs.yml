@@ -10,18 +10,6 @@ theme:
       scheme: default
       primary: indigo
       accent: indigo
-      toggle:
-        icon: material/toggle-switch-off-outline
-        name: Switch to dark mode
-
-    # Dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: indigo
-      accent: yellow
-      toggle:
-        icon: material/toggle-switch
-        name: Switch to light mode
 
 # Extensions
 markdown_extensions:
