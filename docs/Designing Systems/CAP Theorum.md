@@ -67,16 +67,12 @@ Active-active failover can also be referred to as master-master failover.
 -   There is a potential for loss of data if the active system fails before any newly written data can be replicated to the passive.
 
 
-# Databases
-## CA databases
+## Databases
+### CA databases
 CA databases enable consistency and availability across all nodes. Unfortunately, CA databases **can’t deliver fault tolerance**. In any distributed system, partitions are bound to happen, which means this type of database isn’t a very practical choice. That being said, you still can find a CA database if you need one. Some [**relational databases**](https://www.educative.io/blog/relational-database-deep-dive), such as [PostgreSQL](https://www.educative.io/blog/mongodb-versus-postgresql-databases), allow for consistency and availability. You can deploy them to nodes using replication.
 
-## CP databases
+### CP databases
 CP databases enable consistency and partition tolerance, but not availability. When a partition occurs, the system has to **turn off inconsistent nodes until the partition can be fixed**. [MongoDB](https://www.educative.io/blog/mongodb-with-docker) is an example of a CP database. It’s a NoSQL database management system (DBMS) that uses documents for data storage. It’s considered schema-less, which means that it doesn’t require a defined database schema. It’s commonly used in [big data](https://www.educative.io/blog/what-is-big-data) and applications running in different locations. The CP system is structured so that there’s only one primary node that receives all of the write requests in a given replica set. Secondary nodes replicate the data in the primary nodes, so if the primary node fails, a secondary node can stand-in.
 
-## AP databases
+### AP databases
 AP databases enable availability and partition tolerance, but not consistency. In the event of a partition, all nodes are available, but they’re not all updated. For example, if a user tries to access data from a bad node, they **won’t receive the most up-to-date version of the data**. When the partition is eventually resolved, most AP databases will sync the nodes to ensure consistency across them. **Apache Cassandra** is an example of an AP database. It’s a NoSQL database with no primary node, meaning that all of the nodes remain available. Cassandra allows for eventual consistency because users can resync their data right after a partition is resolved.
-
-
-## Kafka
-Message queues can be used when eventual consistency is good enough.
