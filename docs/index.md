@@ -23,7 +23,7 @@ Coding problems categorized by company.
 
 
 ## System Design Primer
-The System Design Primer Github page is the open-sourced bible on this topic.  It comes with flashcards, mock interviews (w/solutions), and much more.
+The [System Design Primer Github page](https://github.com/donnemartin/system-design-primer) is the open-sourced bible on this topic.  It comes with flashcards, mock interviews (w/solutions), and much more.
 
 Related Notes...
 
