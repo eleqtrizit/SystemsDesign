@@ -1,21 +1,6 @@
 # Designing Data Intensive Applications
 From moyano83 on github
 
-## Table of contents:
-
-1. [Chapter 1: Reliable, Scalable, and Maintainable Applications](#Chapter1)
-2. [Chapter 2: Data Models and Query Languages](#Chapter2)
-3. [Chapter 3: Storage and Retrieval](#Chapter3)
-4. [Chapter 4: Encoding and Evolution](#Chapter4)
-5. [Chapter 5: Replication](#Chapter5)
-6. [Chapter 6: Partitioning](#Chapter6)
-7. [Chapter 7: Transactions](#Chapter7)
-8. [Chapter 8: The Trouble with Distributed Systems](#Chapter8)
-9. [Chapter 9: Consistency and Consensus](#Chapter9)
-10. [Chapter 10: Batch Processing](#Chapter10)
-11. [Chapter 11: Stream Processing](#Chapter11)
-12. [Chapter 12: The Future of Data Systems](#Chapter12)
-
 ## Chapter 1: Reliable, Scalable, and Maintainable Applications<a name="Chapter1"></a>
 
 ### Thinking About Data Systems
