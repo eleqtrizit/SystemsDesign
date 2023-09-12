@@ -19,6 +19,28 @@
 	- A transaction is a unit of work that you want to treat as "a whole." It has to either happen in full or not at all.
 	- e.g move money from one account to another.  Can't let this be half finished.
 
+## Synchronous vs Asynchronous Commits
+### Asynchronous Commit
+In an asynchronous commit, the transaction is considered complete as soon as the command is issued, without waiting for the data to be physically written to the disk. This approach can improve performance, especially in situations involving a large number of write operations.
+
+However, there's a risk involved: if a system failure occurs before the data is physically written to the disk, the changes may be lost.
+
+**Use Cases for Asynchronous Commit**
+- When high throughput and lower latency are more important than the risk of potential data loss.
+- When the data is not mission-critical and can be recovered or recreated if lost.
+- When the database is used for caching data or for temporary storage.
+
+### Synchronous Commit
+In a synchronous commit, the transaction is not considered complete until the data has been physically written to the disk. This ensures a higher level of data integrity as it reduces the risk of data loss in case of a system failure.
+
+However, this approach may have a performance impact as it requires the system to wait until the write operation is confirmed.
+
+**Use Cases for Synchronous Commit**
+- When data integrity is paramount and any data loss is unacceptable.
+- When the database stores critical data, such as financial transactions, where consistency and durability are required.
+- When the system can tolerate the potential performance impact of waiting for commit confirmation.
+- In summary, the decision to use asynchronous or synchronous commit depends largely on the trade-off between performance and data integrity that is acceptable for your specific use case.
+
 ## What are some things to check on a slow database?
 MySQL is fairly popular, so let’s look at some basic MySQL debugging. First off, check the OS to make sure the system is running fine, specially check CPU, memory, SWAP space and disk I/O. 
 
@@ -96,6 +118,23 @@ In most systems, reads can heavily outnumber writes 100:1 or even 1000:1. A read
 -   A denormalized database under heavy write load might perform worse than its normalized counterpart.
 
 
+## Change Control
+### Database Content Control
+Change control for iterative structure releases in a database can be achieved through a combination of version control systems, migration scripts, and database schema management tools.
+
+#### Version Control Systems
+Version Control Systems (like Git) can be used to keep track of changes made to the database structure. Each change to the database structure is committed to the version control system with a description of what was changed, why it was changed, and by whom. This allows for easy tracking and rollback of changes if necessary.
+
+#### Migration Scripts
+Migration scripts are scripts that make changes to the database structure. These scripts are written in such a way that they can be run multiple times without causing issues. Each script corresponds to a specific change to the database structure.
+
+#### Database Schema Management Tools
+Database Schema Management Tools can be used to manage and automate the process of applying migration scripts. They keep track of which scripts have been run, ensuring that each script is only run once.
+
+### Database Configuration Control
+
+This section is weak.  I'm guessing it is a combination of documentation, config management repo, a tool to deploy the changes, and a tool to test/benchmark the changes before a full roll out versus the existing configuration.
+
 ## NoSQL
 NoSQL is a collection of data items represented in a **key-value store**, **document store**, **wide column store**, or a **graph database**. Data is denormalized, and joins are generally done in the application code. Most NoSQL stores lack true ACID transactions and favor [eventual consistency](https://github.com/donnemartin/system-design-primer#eventual-consistency).
 
@@ -121,6 +160,33 @@ A wide column store's basic unit of data is a column (name/value pair). A column
 In a graph database, each node is a record and each arc is a relationship between two nodes. Graph databases are optimized to represent complex relationships with many foreign keys or many-to-many relationships.
 
 Graphs databases offer high performance for data models with complex relationships, such as a social network. They are relatively new and are not yet widely-used.
+
+
+### Popular NoSQL Options
+There are several major non-relational database options, each with its own unique strengths. Here are some of the most popular ones:
+
+
+#### MongoDB
+**Strengths**: Flexible schema, scalability, and speed.
+MongoDB uses a document-oriented model which allows for records that do not have to have a uniform structure, unlike relational databases. This flexibility can make it easier to scale and develop with.
+
+#### Cassandra
+**Strengths**: High availability, fault tolerance, and performance.
+Cassandra was designed to handle large amounts of data across many commodity servers, providing high availability with no single point of failure.
+
+#### Redis
+**Strengths**: Speed, simplicity, and versatility.
+Redis is an in-memory data structure store used as a database, cache, and message broker. Its in-memory nature gives it excellent performance.
+
+#### HBase
+**Strengths**: Scalability, strong consistency, and integration with Hadoop.
+HBase is a column-oriented database that's designed to store large amounts of data in a distributed environment. It's built on top of Hadoop and is often used for real-time read/write access to big data.
+
+#### CouchDB
+**Strengths**: Replication & Sync, ease of use, and a HTTP/JSON API.
+
+CouchDB is a document-oriented database and uses JSON to store data, JavaScript as its query language, and HTTP for an API. It also offers incremental replication with bi-directional conflict detection and resolution.
+
 
 ## SQL or NoSQL
 [[Cliff Notes - moyano83#Relational Model Versus Document Model]]
@@ -152,3 +218,82 @@ Sample data well-suited for NoSQL:
 -   Frequently accessed ('hot') tables
 -   Metadata/lookup tables
 
+## Testing
+
+Strategies would aim to maintain data integrity, database performance, and continuity of operations even under unexpected conditions.
+
+**Implement Data Validation Rules**: Use database constraints (such as UNIQUE, NOT NULL, CHECK) to ensure data consistency and prevent invalid data from being inserted into the database.
+```sql
+CREATE TABLE Employees (
+ ID int NOT NULL,
+ Name varchar(255) NOT NULL,
+ Age int CHECK (Age>=18),
+ PRIMARY KEY (ID)
+);
+```
+
+**Use Exception Handling**: Implement error handling mechanisms in your SQL procedures to catch exceptions and manage them appropriately.
+```sql
+BEGIN TRY
+ -- Code here
+END TRY
+BEGIN CATCH
+ -- Handle error
+END CATCH
+```
+
+**Write Unit Tests**: Create tests for your database procedures and queries to check their correctness under a variety of scenarios, including corner cases.
+```sql
+-- A simple unit test might look like this (pseudo-code)
+TEST PROCEDURE test_employee_age() AS
+BEGIN
+ -- Insert an employee with an invalid age
+ INSERT INTO Employees (ID, Name, Age) VALUES (1, 'Test', 17);
+ -- Check that the insert failed
+ ASSERT SELECT COUNT(*) FROM Employees WHERE ID = 1 IS NULL;
+END
+```
+
+**Perform Stress Testing**: Test how your database performs under heavy load or large amounts of data to identify and address performance issues.
+
+**Design for Scalability**: Use strategies like partitioning, sharding, or using distributed databases to ensure your database can handle high volumes of data.
+
+**Regularly Monitor and Profile Your Database**: Use database profiling tools to regularly monitor the performance of your database and identify any potential corner cases causing issues.
+
+**Use Transaction Management**: Use transactions to ensure that your database operations are atomic, consistent, isolated, and durable (ACID). This is especially important for handling corner cases where operations might fail partway.
+
+## Security
+
+Database security is a critical aspect of information system design and administration. There are two primary types of privileges in a database environment: administrative privileges and system privileges. Here's a detailed breakdown of the two and their associated security concerns:
+
+### Administrative Privileges
+Administrative privileges allow a user to perform high-level operations in a database. These operations include:
+
+- Creating, altering, and dropping databases and tables
+- Granting, revoking, and altering user privileges
+- Running backup and restore operations
+
+#### Security Concerns
+**Access Control**: The primary security concern is unauthorized access. If a malicious user gains administrative access, they could potentially alter the database, damage the data, or grant themselves further permissions.
+
+**Data Integrity**: Administrators have the ability to alter the database schema. If not properly controlled, this could lead to issues with data integrity.
+
+**Data Loss**: Administrators typically have the ability to drop databases and tables. If a malicious user or even a careless administrator were to drop critical databases or tables, it could result in significant data loss.
+
+### System Privileges
+System privileges are more general than administrative privileges and allow a user to perform actions within the operating system that the database resides on. These privileges include:
+
+- Reading and writing files
+- Starting and stopping services
+- Installing and uninstalling software
+
+### Security Concerns
+**System Integrity**: If a user has system privileges, they can potentially alter critical system settings, which could destabilize the system or make it vulnerable to further attacks.
+
+**Data Privacy**: System privileges often give the user the ability to read and write files. This could potentially be used to access sensitive data or introduce malicious software.
+
+**Denial of Service**: A user with system privileges could potentially stop critical services, resulting in a denial of service.
+
+To mitigate these security concerns, it's important to follow the **principle of least privilege**, *which means only granting users the minimum privileges they need to perform their tasks*. Additionally, regular audits and monitoring can help detect any unusual activity or privilege escalation.
+
+ 
