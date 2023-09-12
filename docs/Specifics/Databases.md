@@ -47,17 +47,17 @@ MySQL is fairly popular, so let’s look at some basic MySQL debugging. First of
 Assuming those are all ok, then log into MySQL and check the running queries, you can do so by running the command `show full processlist`. This will give you a list of queries running on the server. If you see a query that has been running for an excessively long time, you should investigate that query.
 
 Check
-	* `Explain` query
-	* check slow query log file
-	* Check query cache
+- `Explain` query
+- check slow query log file
+- Check query cache
 
 
 ## ACID
 **ACID** is a set of properties of relational database [transactions](https://en.wikipedia.org/wiki/Database_transaction).
--   **Atomicity** - Each transaction is all or nothing
--   **Consistency** - Any transaction will bring the database from one valid state to another
--   **Isolation** - Executing transactions concurrently has the same results as if the transactions were executed serially
--   **Durability** - Once a transaction has been committed, it will remain so
+- **Atomicity** - Each transaction is all or nothing
+- **Consistency** - Any transaction will bring the database from one valid state to another
+- **Isolation** - Executing transactions concurrently has the same results as if the transactions were executed serially
+- **Durability** - Once a transaction has been committed, it will remain so
 
 
 ## Replication
