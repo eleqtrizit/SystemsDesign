@@ -1,0 +1,2063 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Caching/">
+      
+      
+        <link rel="next" href="../File%20Systems/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+    
+    
+      
+        <title>Databases - Systems Design</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#databases" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Systems Design" class="md-header__button md-logo" aria-label="Systems Design" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Systems Design
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Databases
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="yellow"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Systems Design" class="md-nav__button md-logo" aria-label="Systems Design" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Systems Design
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Systems Design and Coding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Designing Data Intensive Applications
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Designing Data Intensive Applications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cliff Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Cliff Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Data%20Intensive%20Applications/Cliff%20Notes/Cliff%20Notes%20-%20Someguy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Designing Data-Intensive Applications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Data%20Intensive%20Applications/Cliff%20Notes/Cliff%20Notes%20-%20moyano83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Designing Data Intensive Applications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Designing Systems
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Designing Systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Systems/CAP%20Theorum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CAP Theorum
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Systems/Distibuted%20System%20Fundamentals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Distributed System Fundamentals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Systems/How%20to%20Design%20Large%20Scale%20Systems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Design Large Scale Systems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Systems/System%20Design%20Interview%20Steps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Design Interview Steps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specifics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Specifics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Asynchronism/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Asynchronism
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Caching/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Databases
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Databases
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-myisam-and-innodb" class="md-nav__link">
+    What is the difference between MyISAM and InnoDB?
+  </a>
+  
+    <nav class="md-nav" aria-label="What is the difference between MyISAM and InnoDB?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#myisam" class="md-nav__link">
+    MyISAM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#innodb" class="md-nav__link">
+    InnoDB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronous-vs-asynchronous-commits" class="md-nav__link">
+    Synchronous vs Asynchronous Commits
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronous vs Asynchronous Commits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-commit" class="md-nav__link">
+    Asynchronous Commit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronous-commit" class="md-nav__link">
+    Synchronous Commit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-some-things-to-check-on-a-slow-database" class="md-nav__link">
+    What are some things to check on a slow database?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acid" class="md-nav__link">
+    ACID
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replication" class="md-nav__link">
+    Replication
+  </a>
+  
+    <nav class="md-nav" aria-label="Replication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tuning" class="md-nav__link">
+    Tuning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#master-slave-replication" class="md-nav__link">
+    Master-slave replication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#master-master-replication" class="md-nav__link">
+    Master-master replication
+  </a>
+  
+    <nav class="md-nav" aria-label="Master-master replication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages-master-master-replication" class="md-nav__link">
+    Disadvantage(s): master-master replication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disadvantage-for-all-replication" class="md-nav__link">
+    Disadvantage for all replication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#federation" class="md-nav__link">
+    Federation
+  </a>
+  
+    <nav class="md-nav" aria-label="Federation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages-federation" class="md-nav__link">
+    Disadvantage(s): federation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharding" class="md-nav__link">
+    Sharding
+  </a>
+  
+    <nav class="md-nav" aria-label="Sharding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages-sharding" class="md-nav__link">
+    Disadvantage(s): sharding
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#denormalization" class="md-nav__link">
+    Denormalization
+  </a>
+  
+    <nav class="md-nav" aria-label="Denormalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages-denormalization" class="md-nav__link">
+    Disadvantage(s): denormalization
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-control" class="md-nav__link">
+    Change Control
+  </a>
+  
+    <nav class="md-nav" aria-label="Change Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-content-control" class="md-nav__link">
+    Database Content Control
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Content Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-control-systems" class="md-nav__link">
+    Version Control Systems
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-scripts" class="md-nav__link">
+    Migration Scripts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-schema-management-tools" class="md-nav__link">
+    Database Schema Management Tools
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-configuration-control" class="md-nav__link">
+    Database Configuration Control
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nosql" class="md-nav__link">
+    NoSQL
+  </a>
+  
+    <nav class="md-nav" aria-label="NoSQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-value-store" class="md-nav__link">
+    Key-value store
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#document-store" class="md-nav__link">
+    Document store
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wide-column-store" class="md-nav__link">
+    Wide column store
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-database" class="md-nav__link">
+    Graph database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#popular-nosql-options" class="md-nav__link">
+    Popular NoSQL Options
+  </a>
+  
+    <nav class="md-nav" aria-label="Popular NoSQL Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mongodb" class="md-nav__link">
+    MongoDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cassandra" class="md-nav__link">
+    Cassandra
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    Redis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hbase" class="md-nav__link">
+    HBase
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#couchdb" class="md-nav__link">
+    CouchDB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-or-nosql" class="md-nav__link">
+    SQL or NoSQL
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL or NoSQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reasons-for-sql" class="md-nav__link">
+    Reasons for SQL:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reasons-for-nosql" class="md-nav__link">
+    Reasons for NoSQL:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    Testing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    Security
+  </a>
+  
+    <nav class="md-nav" aria-label="Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#administrative-privileges" class="md-nav__link">
+    Administrative Privileges
+  </a>
+  
+    <nav class="md-nav" aria-label="Administrative Privileges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-concerns" class="md-nav__link">
+    Security Concerns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-privileges" class="md-nav__link">
+    System Privileges
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-concerns_1" class="md-nav__link">
+    Security Concerns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File%20Systems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Systems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Google%20Systems%20Design%20-%20Code%20Deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Systems Design - Code Deployment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20Commands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Interview Questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20Networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20OS%20Internals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux OS Internals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Load%20Balancers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SRE%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SRE Interview Questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSH/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Systems%20Design%20Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Systems Design Template
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Troubleshooting%20via%20Metrics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting via Metrics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unix%20Processes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux/Unix Processes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../What%20happens%20when%20you%20type%20google.com%20into%20a%20browser/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What happens when you type "google.com" into a browser?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-the-difference-between-myisam-and-innodb" class="md-nav__link">
+    What is the difference between MyISAM and InnoDB?
+  </a>
+  
+    <nav class="md-nav" aria-label="What is the difference between MyISAM and InnoDB?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#myisam" class="md-nav__link">
+    MyISAM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#innodb" class="md-nav__link">
+    InnoDB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronous-vs-asynchronous-commits" class="md-nav__link">
+    Synchronous vs Asynchronous Commits
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronous vs Asynchronous Commits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-commit" class="md-nav__link">
+    Asynchronous Commit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronous-commit" class="md-nav__link">
+    Synchronous Commit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-some-things-to-check-on-a-slow-database" class="md-nav__link">
+    What are some things to check on a slow database?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acid" class="md-nav__link">
+    ACID
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replication" class="md-nav__link">
+    Replication
+  </a>
+  
+    <nav class="md-nav" aria-label="Replication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tuning" class="md-nav__link">
+    Tuning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#master-slave-replication" class="md-nav__link">
+    Master-slave replication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#master-master-replication" class="md-nav__link">
+    Master-master replication
+  </a>
+  
+    <nav class="md-nav" aria-label="Master-master replication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages-master-master-replication" class="md-nav__link">
+    Disadvantage(s): master-master replication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disadvantage-for-all-replication" class="md-nav__link">
+    Disadvantage for all replication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#federation" class="md-nav__link">
+    Federation
+  </a>
+  
+    <nav class="md-nav" aria-label="Federation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages-federation" class="md-nav__link">
+    Disadvantage(s): federation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharding" class="md-nav__link">
+    Sharding
+  </a>
+  
+    <nav class="md-nav" aria-label="Sharding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages-sharding" class="md-nav__link">
+    Disadvantage(s): sharding
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#denormalization" class="md-nav__link">
+    Denormalization
+  </a>
+  
+    <nav class="md-nav" aria-label="Denormalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages-denormalization" class="md-nav__link">
+    Disadvantage(s): denormalization
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-control" class="md-nav__link">
+    Change Control
+  </a>
+  
+    <nav class="md-nav" aria-label="Change Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-content-control" class="md-nav__link">
+    Database Content Control
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Content Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-control-systems" class="md-nav__link">
+    Version Control Systems
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-scripts" class="md-nav__link">
+    Migration Scripts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-schema-management-tools" class="md-nav__link">
+    Database Schema Management Tools
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-configuration-control" class="md-nav__link">
+    Database Configuration Control
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nosql" class="md-nav__link">
+    NoSQL
+  </a>
+  
+    <nav class="md-nav" aria-label="NoSQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-value-store" class="md-nav__link">
+    Key-value store
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#document-store" class="md-nav__link">
+    Document store
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wide-column-store" class="md-nav__link">
+    Wide column store
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graph-database" class="md-nav__link">
+    Graph database
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#popular-nosql-options" class="md-nav__link">
+    Popular NoSQL Options
+  </a>
+  
+    <nav class="md-nav" aria-label="Popular NoSQL Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mongodb" class="md-nav__link">
+    MongoDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cassandra" class="md-nav__link">
+    Cassandra
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redis" class="md-nav__link">
+    Redis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hbase" class="md-nav__link">
+    HBase
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#couchdb" class="md-nav__link">
+    CouchDB
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-or-nosql" class="md-nav__link">
+    SQL or NoSQL
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL or NoSQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reasons-for-sql" class="md-nav__link">
+    Reasons for SQL:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reasons-for-nosql" class="md-nav__link">
+    Reasons for NoSQL:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    Testing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    Security
+  </a>
+  
+    <nav class="md-nav" aria-label="Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#administrative-privileges" class="md-nav__link">
+    Administrative Privileges
+  </a>
+  
+    <nav class="md-nav" aria-label="Administrative Privileges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-concerns" class="md-nav__link">
+    Security Concerns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-privileges" class="md-nav__link">
+    System Privileges
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-concerns_1" class="md-nav__link">
+    Security Concerns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="databases">Databases<a class="headerlink" href="#databases" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-the-difference-between-myisam-and-innodb">What is the difference between MyISAM and InnoDB?<a class="headerlink" href="#what-is-the-difference-between-myisam-and-innodb" title="Permanent link">&para;</a></h2>
+<h3 id="myisam">MyISAM<a class="headerlink" href="#myisam" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Supports table level locking</li>
+<li>Is Faster than InnoDB</li>
+<li>Does not support foreign keys</li>
+<li>Stores table, data and index in different files</li>
+<li>Does not support transactions (no commit with rollback)</li>
+<li>Useful for more selects with fewer updates  </li>
+</ul>
+<h3 id="innodb">InnoDB<a class="headerlink" href="#innodb" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Support row level locking</li>
+<li>Is slower than MyISAM</li>
+<li>Supports foreign keys</li>
+<li>Stores table and index in table space</li>
+<li>Supports transactions<ul>
+<li>A transaction is a unit of work that you want to treat as "a whole." It has to either happen in full or not at all.</li>
+<li>e.g move money from one account to another.  Can't let this be half finished.</li>
+</ul>
+</li>
+</ul>
+<h2 id="synchronous-vs-asynchronous-commits">Synchronous vs Asynchronous Commits<a class="headerlink" href="#synchronous-vs-asynchronous-commits" title="Permanent link">&para;</a></h2>
+<h3 id="asynchronous-commit">Asynchronous Commit<a class="headerlink" href="#asynchronous-commit" title="Permanent link">&para;</a></h3>
+<p>In an asynchronous commit, the transaction is considered complete as soon as the command is issued, without waiting for the data to be physically written to the disk. This approach can improve performance, especially in situations involving a large number of write operations.</p>
+<p>However, there's a risk involved: if a system failure occurs before the data is physically written to the disk, the changes may be lost.</p>
+<p><strong>Use Cases for Asynchronous Commit</strong>
+- When high throughput and lower latency are more important than the risk of potential data loss.
+- When the data is not mission-critical and can be recovered or recreated if lost.
+- When the database is used for caching data or for temporary storage.</p>
+<h3 id="synchronous-commit">Synchronous Commit<a class="headerlink" href="#synchronous-commit" title="Permanent link">&para;</a></h3>
+<p>In a synchronous commit, the transaction is not considered complete until the data has been physically written to the disk. This ensures a higher level of data integrity as it reduces the risk of data loss in case of a system failure.</p>
+<p>However, this approach may have a performance impact as it requires the system to wait until the write operation is confirmed.</p>
+<p><strong>Use Cases for Synchronous Commit</strong>
+- When data integrity is paramount and any data loss is unacceptable.
+- When the database stores critical data, such as financial transactions, where consistency and durability are required.
+- When the system can tolerate the potential performance impact of waiting for commit confirmation.
+- In summary, the decision to use asynchronous or synchronous commit depends largely on the trade-off between performance and data integrity that is acceptable for your specific use case.</p>
+<h2 id="what-are-some-things-to-check-on-a-slow-database">What are some things to check on a slow database?<a class="headerlink" href="#what-are-some-things-to-check-on-a-slow-database" title="Permanent link">&para;</a></h2>
+<p>MySQL is fairly popular, so let’s look at some basic MySQL debugging. First off, check the OS to make sure the system is running fine, specially check CPU, memory, SWAP space and disk I/O. </p>
+<p>Assuming those are all ok, then log into MySQL and check the running queries, you can do so by running the command <code>show full processlist</code>. This will give you a list of queries running on the server. If you see a query that has been running for an excessively long time, you should investigate that query.</p>
+<p>Check
+- <code>Explain</code> query
+- check slow query log file
+- Check query cache</p>
+<h2 id="acid">ACID<a class="headerlink" href="#acid" title="Permanent link">&para;</a></h2>
+<p><strong>ACID</strong> is a set of properties of relational database <a href="https://en.wikipedia.org/wiki/Database_transaction">transactions</a>.
+- <strong>Atomicity</strong> - Each transaction is all or nothing
+- <strong>Consistency</strong> - Any transaction will bring the database from one valid state to another
+- <strong>Isolation</strong> - Executing transactions concurrently has the same results as if the transactions were executed serially
+- <strong>Durability</strong> - Once a transaction has been committed, it will remain so</p>
+<h2 id="replication">Replication<a class="headerlink" href="#replication" title="Permanent link">&para;</a></h2>
+<h3 id="tuning">Tuning<a class="headerlink" href="#tuning" title="Permanent link">&para;</a></h3>
+<p>There are many techniques to scale a relational database: <strong>master-slave replication</strong>, <strong>master-master replication</strong>, <strong>federation</strong>, <strong>sharding</strong>, <strong>denormalization</strong>, and <strong>SQL tuning</strong>.</p>
+<h3 id="master-slave-replication">Master-slave replication<a class="headerlink" href="#master-slave-replication" title="Permanent link">&para;</a></h3>
+<p>The master serves reads and writes, replicating writes to one or more slaves, which serve only reads. Slaves can also replicate to additional slaves in a tree-like fashion. If the master goes offline, the system can continue to operate in read-only mode until a slave is promoted to a master or a new master is provisioned.
+<img alt="Pasted image 20220417103311.png" src="../../attachments/Pasted%20image%2020220417103311.png" /></p>
+<h3 id="master-master-replication">Master-master replication<a class="headerlink" href="#master-master-replication" title="Permanent link">&para;</a></h3>
+<p>Both masters serve reads and writes and coordinate with each other on writes. If either master goes down, the system can continue to operate with both reads and writes.</p>
+<h5 id="disadvantages-master-master-replication">Disadvantage(s): master-master replication<a class="headerlink" href="#disadvantages-master-master-replication" title="Permanent link">&para;</a></h5>
+<ul>
+<li>You'll need a load balancer or you'll need to make changes to your application logic to determine where to write.</li>
+<li>Most master-master systems are either loosely consistent (violating ACID) or have increased write latency due to synchronization.</li>
+<li>Conflict resolution comes more into play as more write nodes are added and as latency increases.
+<img alt="Pasted image 20220417103446.png" src="../../attachments/Pasted%20image%2020220417103446.png" /></li>
+</ul>
+<h3 id="disadvantage-for-all-replication">Disadvantage for all replication<a class="headerlink" href="#disadvantage-for-all-replication" title="Permanent link">&para;</a></h3>
+<ul>
+<li>There is a potential for loss of data if the master fails before any newly written data can be replicated to other nodes.</li>
+<li>Writes are replayed to the read replicas. If there are a lot of writes, the read replicas can get bogged down with replaying writes and can't do as many reads.</li>
+<li>The more read slaves, the more you have to replicate, which leads to greater replication lag.</li>
+<li>On some systems, writing to the master can spawn multiple threads to write in parallel, whereas read replicas only support writing sequentially with a single thread.</li>
+</ul>
+<h2 id="federation">Federation<a class="headerlink" href="#federation" title="Permanent link">&para;</a></h2>
+<p>Federation (or functional partitioning) splits up databases by function. For example, instead of a single, monolithic database, you could have three databases: <strong>forums</strong>, <strong>users</strong>, and <strong>products</strong>, resulting in less read and write traffic to each database and therefore less replication lag. Smaller databases result in more data that can fit in memory, which in turn results in more cache hits due to improved cache locality. With no single central master serializing writes you can write in parallel, increasing throughput.</p>
+<h5 id="disadvantages-federation">Disadvantage(s): federation<a class="headerlink" href="#disadvantages-federation" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Federation is not effective if your schema requires huge functions or tables.</li>
+<li>You'll need to update your application logic to determine which database to read and write.</li>
+<li>Joining data from two databases is more complex with a <a href="http://stackoverflow.com/questions/5145637/querying-data-by-joining-two-tables-in-two-database-on-different-servers">server link</a>.</li>
+</ul>
+<h2 id="sharding">Sharding<a class="headerlink" href="#sharding" title="Permanent link">&para;</a></h2>
+<p>Sharding distributes data across different databases such that each database can only manage a subset of the data.  If one shard goes down, the other shards are still operational, although you'll want to add some form of replication to avoid data loss.</p>
+<h5 id="disadvantages-sharding">Disadvantage(s): sharding<a class="headerlink" href="#disadvantages-sharding" title="Permanent link">&para;</a></h5>
+<ul>
+<li>You'll need to update your application logic to work with shards, which could result in complex SQL queries.</li>
+<li>Data distribution can become lopsided in a shard. For example, a set of power users on a shard could result in increased load to that shard compared to others.<ul>
+<li>Rebalancing adds additional complexity. A sharding function based on <a href="http://www.paperplanes.de/2011/12/9/the-magic-of-consistent-hashing.html">consistent hashing</a> can reduce the amount of transferred data.</li>
+</ul>
+</li>
+<li>Joining data from multiple shards is more complex.
+<img alt="Pasted image 20220417103938.png" src="../../attachments/Pasted%20image%2020220417103938.png" /></li>
+</ul>
+<h2 id="denormalization">Denormalization<a class="headerlink" href="#denormalization" title="Permanent link">&para;</a></h2>
+<p>Denormalization attempts to improve read performance at the expense of some write performance. Redundant copies of the data are written in multiple tables to avoid expensive joins. Some RDBMS such as <a href="https://en.wikipedia.org/wiki/PostgreSQL">PostgreSQL</a> and Oracle support <a href="https://en.wikipedia.org/wiki/Materialized_view">materialized views</a> which handle the work of storing redundant information and keeping redundant copies consistent.</p>
+<p>Once data becomes distributed with techniques such as <a href="https://github.com/donnemartin/system-design-primer#federation">federation</a> and <a href="https://github.com/donnemartin/system-design-primer#sharding">sharding</a>, managing joins across data centers further increases complexity. Denormalization might circumvent the need for such complex joins.</p>
+<p>In most systems, reads can heavily outnumber writes 100:1 or even 1000:1. A read resulting in a complex database join can be very expensive, spending a significant amount of time on disk operations.</p>
+<h5 id="disadvantages-denormalization"><a href="https://github.com/donnemartin/system-design-primer#disadvantages-denormalization"></a>Disadvantage(s): denormalization<a class="headerlink" href="#disadvantages-denormalization" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Data is duplicated.</li>
+<li>Constraints can help redundant copies of information stay in sync, which increases complexity of the database design.</li>
+<li>A denormalized database under heavy write load might perform worse than its normalized counterpart.</li>
+</ul>
+<h2 id="change-control">Change Control<a class="headerlink" href="#change-control" title="Permanent link">&para;</a></h2>
+<h3 id="database-content-control">Database Content Control<a class="headerlink" href="#database-content-control" title="Permanent link">&para;</a></h3>
+<p>Change control for iterative structure releases in a database can be achieved through a combination of version control systems, migration scripts, and database schema management tools.</p>
+<h4 id="version-control-systems">Version Control Systems<a class="headerlink" href="#version-control-systems" title="Permanent link">&para;</a></h4>
+<p>Version Control Systems (like Git) can be used to keep track of changes made to the database structure. Each change to the database structure is committed to the version control system with a description of what was changed, why it was changed, and by whom. This allows for easy tracking and rollback of changes if necessary.</p>
+<h4 id="migration-scripts">Migration Scripts<a class="headerlink" href="#migration-scripts" title="Permanent link">&para;</a></h4>
+<p>Migration scripts are scripts that make changes to the database structure. These scripts are written in such a way that they can be run multiple times without causing issues. Each script corresponds to a specific change to the database structure.</p>
+<h4 id="database-schema-management-tools">Database Schema Management Tools<a class="headerlink" href="#database-schema-management-tools" title="Permanent link">&para;</a></h4>
+<p>Database Schema Management Tools can be used to manage and automate the process of applying migration scripts. They keep track of which scripts have been run, ensuring that each script is only run once.</p>
+<h3 id="database-configuration-control">Database Configuration Control<a class="headerlink" href="#database-configuration-control" title="Permanent link">&para;</a></h3>
+<p>This section is weak.  I'm guessing it is a combination of documentation, config management repo, a tool to deploy the changes, and a tool to test/benchmark the changes before a full roll out versus the existing configuration.</p>
+<h2 id="nosql">NoSQL<a class="headerlink" href="#nosql" title="Permanent link">&para;</a></h2>
+<p>NoSQL is a collection of data items represented in a <strong>key-value store</strong>, <strong>document store</strong>, <strong>wide column store</strong>, or a <strong>graph database</strong>. Data is denormalized, and joins are generally done in the application code. Most NoSQL stores lack true ACID transactions and favor <a href="https://github.com/donnemartin/system-design-primer#eventual-consistency">eventual consistency</a>.</p>
+<h4 id="key-value-store">Key-value store<a class="headerlink" href="#key-value-store" title="Permanent link">&para;</a></h4>
+<p>Abstraction: hash table</p>
+<p>A key-value store generally allows for O(1) reads and writes and is often backed by memory or SSD. Data stores can maintain keys in lexicographic order (aka alphabetical, totally ordered), allowing efficient retrieval of key ranges. Key-value stores can allow for storing of metadata with a value.</p>
+<p>Key-value stores provide high performance and are often used for simple data models or for rapidly-changing data, such as an in-memory cache layer. Since they offer only a limited set of operations, complexity is shifted to the application layer if additional operations are needed.</p>
+<h4 id="document-store">Document store<a class="headerlink" href="#document-store" title="Permanent link">&para;</a></h4>
+<p>Abstraction: key-value store with documents stored as values</p>
+<p>A document store is centered around documents (XML, JSON, binary, etc), where a document stores all information for a given object. Document stores provide APIs or a query language to query based on the internal structure of the document itself. <em>Note, many key-value stores include features for working with a value's metadata, blurring the lines between these two storage types.</em></p>
+<h4 id="wide-column-store">Wide column store<a class="headerlink" href="#wide-column-store" title="Permanent link">&para;</a></h4>
+<p><img alt="Pasted image 20220417112330.png" src="../../attachments/Pasted%20image%2020220417112330.png" /></p>
+<p>A wide column store's basic unit of data is a column (name/value pair). A column can be grouped in column families (analogous to a SQL table). Super column families further group column families</p>
+<h4 id="graph-database">Graph database<a class="headerlink" href="#graph-database" title="Permanent link">&para;</a></h4>
+<p><img alt="Pasted image 20220417112417.png" src="../../attachments/Pasted%20image%2020220417112417.png" />
+In a graph database, each node is a record and each arc is a relationship between two nodes. Graph databases are optimized to represent complex relationships with many foreign keys or many-to-many relationships.</p>
+<p>Graphs databases offer high performance for data models with complex relationships, such as a social network. They are relatively new and are not yet widely-used.</p>
+<h3 id="popular-nosql-options">Popular NoSQL Options<a class="headerlink" href="#popular-nosql-options" title="Permanent link">&para;</a></h3>
+<p>There are several major non-relational database options, each with its own unique strengths. Here are some of the most popular ones:</p>
+<h4 id="mongodb">MongoDB<a class="headerlink" href="#mongodb" title="Permanent link">&para;</a></h4>
+<p><strong>Strengths</strong>: Flexible schema, scalability, and speed.
+MongoDB uses a document-oriented model which allows for records that do not have to have a uniform structure, unlike relational databases. This flexibility can make it easier to scale and develop with.</p>
+<h4 id="cassandra">Cassandra<a class="headerlink" href="#cassandra" title="Permanent link">&para;</a></h4>
+<p><strong>Strengths</strong>: High availability, fault tolerance, and performance.
+Cassandra was designed to handle large amounts of data across many commodity servers, providing high availability with no single point of failure.</p>
+<h4 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h4>
+<p><strong>Strengths</strong>: Speed, simplicity, and versatility.
+Redis is an in-memory data structure store used as a database, cache, and message broker. Its in-memory nature gives it excellent performance.</p>
+<h4 id="hbase">HBase<a class="headerlink" href="#hbase" title="Permanent link">&para;</a></h4>
+<p><strong>Strengths</strong>: Scalability, strong consistency, and integration with Hadoop.
+HBase is a column-oriented database that's designed to store large amounts of data in a distributed environment. It's built on top of Hadoop and is often used for real-time read/write access to big data.</p>
+<h4 id="couchdb">CouchDB<a class="headerlink" href="#couchdb" title="Permanent link">&para;</a></h4>
+<p><strong>Strengths</strong>: Replication &amp; Sync, ease of use, and a HTTP/JSON API.</p>
+<p>CouchDB is a document-oriented database and uses JSON to store data, JavaScript as its query language, and HTTP for an API. It also offers incremental replication with bi-directional conflict detection and resolution.</p>
+<h2 id="sql-or-nosql">SQL or NoSQL<a class="headerlink" href="#sql-or-nosql" title="Permanent link">&para;</a></h2>
+<p><a href="../../Designing%20Data%20Intensive%20Applications/Cliff%20Notes/Cliff%20Notes%20-%20moyano83/#relational-model-versus-document-model">Cliff Notes - moyano83#Relational Model Versus Document Model</a>
+<a href="../../Designing%20Data%20Intensive%20Applications/Cliff%20Notes/Cliff%20Notes%20-%20Someguy/#relational-model-vs-document-model">Cliff Notes - Someguy#Relational model vs document model</a></p>
+<h3 id="reasons-for-sql">Reasons for <strong>SQL</strong>:<a class="headerlink" href="#reasons-for-sql" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Structured data</li>
+<li>Strict schema</li>
+<li>Relational data</li>
+<li>Need for complex joins</li>
+<li>Transactions</li>
+<li>Clear patterns for scaling</li>
+<li>More established: developers, community, code, tools, etc</li>
+<li>Lookups by index are very fast</li>
+</ul>
+<h3 id="reasons-for-nosql">Reasons for <strong>NoSQL</strong>:<a class="headerlink" href="#reasons-for-nosql" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Semi-structured data</li>
+<li>Dynamic or flexible schema</li>
+<li>Non-relational data</li>
+<li>No need for complex joins</li>
+<li>Store many TB (or PB) of data</li>
+<li>Very data intensive workload</li>
+<li>Very high throughput for IOPS</li>
+</ul>
+<p>Sample data well-suited for NoSQL:
+-   Rapid ingest of clickstream and log data
+-   Leaderboard or scoring data
+-   Temporary data, such as a shopping cart
+-   Frequently accessed ('hot') tables
+-   Metadata/lookup tables</p>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p>Strategies would aim to maintain data integrity, database performance, and continuity of operations even under unexpected conditions.</p>
+<p><strong>Implement Data Validation Rules</strong>: Use database constraints (such as UNIQUE, NOT NULL, CHECK) to ensure data consistency and prevent invalid data from being inserted into the database.</p>
+<pre><code class="language-sql">CREATE TABLE Employees (
+ ID int NOT NULL,
+ Name varchar(255) NOT NULL,
+ Age int CHECK (Age&gt;=18),
+ PRIMARY KEY (ID)
+);
+</code></pre>
+<p><strong>Use Exception Handling</strong>: Implement error handling mechanisms in your SQL procedures to catch exceptions and manage them appropriately.</p>
+<pre><code class="language-sql">BEGIN TRY
+ -- Code here
+END TRY
+BEGIN CATCH
+ -- Handle error
+END CATCH
+</code></pre>
+<p><strong>Write Unit Tests</strong>: Create tests for your database procedures and queries to check their correctness under a variety of scenarios, including corner cases.</p>
+<pre><code class="language-sql">-- A simple unit test might look like this (pseudo-code)
+TEST PROCEDURE test_employee_age() AS
+BEGIN
+ -- Insert an employee with an invalid age
+ INSERT INTO Employees (ID, Name, Age) VALUES (1, 'Test', 17);
+ -- Check that the insert failed
+ ASSERT SELECT COUNT(*) FROM Employees WHERE ID = 1 IS NULL;
+END
+</code></pre>
+<p><strong>Perform Stress Testing</strong>: Test how your database performs under heavy load or large amounts of data to identify and address performance issues.</p>
+<p><strong>Design for Scalability</strong>: Use strategies like partitioning, sharding, or using distributed databases to ensure your database can handle high volumes of data.</p>
+<p><strong>Regularly Monitor and Profile Your Database</strong>: Use database profiling tools to regularly monitor the performance of your database and identify any potential corner cases causing issues.</p>
+<p><strong>Use Transaction Management</strong>: Use transactions to ensure that your database operations are atomic, consistent, isolated, and durable (ACID). This is especially important for handling corner cases where operations might fail partway.</p>
+<h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
+<p>Database security is a critical aspect of information system design and administration. There are two primary types of privileges in a database environment: administrative privileges and system privileges. Here's a detailed breakdown of the two and their associated security concerns:</p>
+<h3 id="administrative-privileges">Administrative Privileges<a class="headerlink" href="#administrative-privileges" title="Permanent link">&para;</a></h3>
+<p>Administrative privileges allow a user to perform high-level operations in a database. These operations include:</p>
+<ul>
+<li>Creating, altering, and dropping databases and tables</li>
+<li>Granting, revoking, and altering user privileges</li>
+<li>Running backup and restore operations</li>
+</ul>
+<h4 id="security-concerns">Security Concerns<a class="headerlink" href="#security-concerns" title="Permanent link">&para;</a></h4>
+<p><strong>Access Control</strong>: The primary security concern is unauthorized access. If a malicious user gains administrative access, they could potentially alter the database, damage the data, or grant themselves further permissions.</p>
+<p><strong>Data Integrity</strong>: Administrators have the ability to alter the database schema. If not properly controlled, this could lead to issues with data integrity.</p>
+<p><strong>Data Loss</strong>: Administrators typically have the ability to drop databases and tables. If a malicious user or even a careless administrator were to drop critical databases or tables, it could result in significant data loss.</p>
+<h3 id="system-privileges">System Privileges<a class="headerlink" href="#system-privileges" title="Permanent link">&para;</a></h3>
+<p>System privileges are more general than administrative privileges and allow a user to perform actions within the operating system that the database resides on. These privileges include:</p>
+<ul>
+<li>Reading and writing files</li>
+<li>Starting and stopping services</li>
+<li>Installing and uninstalling software</li>
+</ul>
+<h3 id="security-concerns_1">Security Concerns<a class="headerlink" href="#security-concerns_1" title="Permanent link">&para;</a></h3>
+<p><strong>System Integrity</strong>: If a user has system privileges, they can potentially alter critical system settings, which could destabilize the system or make it vulnerable to further attacks.</p>
+<p><strong>Data Privacy</strong>: System privileges often give the user the ability to read and write files. This could potentially be used to access sensitive data or introduce malicious software.</p>
+<p><strong>Denial of Service</strong>: A user with system privileges could potentially stop critical services, resulting in a denial of service.</p>
+<p>To mitigate these security concerns, it's important to follow the <strong>principle of least privilege</strong>, <em>which means only granting users the minimum privileges they need to perform their tasks</em>. Additionally, regular audits and monitoring can help detect any unusual activity or privilege escalation.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+    
+  </body>
+</html>

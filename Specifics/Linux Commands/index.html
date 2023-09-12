@@ -1,0 +1,1730 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../HTTP/">
+      
+      
+        <link rel="next" href="../Linux%20Interview%20Questions/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+    
+    
+      
+        <title>Linux Commands - Systems Design</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux-commands" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Systems Design" class="md-header__button md-logo" aria-label="Systems Design" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Systems Design
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux Commands
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="yellow"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Systems Design" class="md-nav__button md-logo" aria-label="Systems Design" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Systems Design
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Systems Design and Coding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Designing Data Intensive Applications
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Designing Data Intensive Applications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cliff Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Cliff Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Data%20Intensive%20Applications/Cliff%20Notes/Cliff%20Notes%20-%20Someguy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Designing Data-Intensive Applications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Data%20Intensive%20Applications/Cliff%20Notes/Cliff%20Notes%20-%20moyano83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Designing Data Intensive Applications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Designing Systems
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Designing Systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Systems/CAP%20Theorum/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CAP Theorum
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Systems/Distibuted%20System%20Fundamentals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Distributed System Fundamentals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Systems/How%20to%20Design%20Large%20Scale%20Systems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Design Large Scale Systems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Systems/System%20Design%20Interview%20Steps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Design Interview Steps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specifics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Specifics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Asynchronism/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Asynchronism
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Caching/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Databases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File%20Systems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Systems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Google%20Systems%20Design%20-%20Code%20Deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Systems Design - Code Deployment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Linux Commands
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Linux Commands
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#clis" class="md-nav__link">
+    CLIs
+  </a>
+  
+    <nav class="md-nav" aria-label="CLIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netstat" class="md-nav__link">
+    netstat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ping" class="md-nav__link">
+    ping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#du" class="md-nav__link">
+    du
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdisk" class="md-nav__link">
+    fdisk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wc" class="md-nav__link">
+    wc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep" class="md-nav__link">
+    grep
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#env" class="md-nav__link">
+    env
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pwd" class="md-nav__link">
+    pwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-new-user-and-set-password" class="md-nav__link">
+    Add new user and set password
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-memory" class="md-nav__link">
+    Check memory
+  </a>
+  
+    <nav class="md-nav" aria-label="Check memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vmstat" class="md-nav__link">
+    vmstat
+  </a>
+  
+    <nav class="md-nav" aria-label="vmstat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buffers-vs-cache" class="md-nav__link">
+    Buffers vs Cache
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipe" class="md-nav__link">
+    pipe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unmask" class="md-nav__link">
+    unmask
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dmesg" class="md-nav__link">
+    dmesg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updatedb" class="md-nav__link">
+    updatedb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-line-of-bash-script" class="md-nav__link">
+    First Line of Bash Script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lspci" class="md-nav__link">
+    lspci
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lshw" class="md-nav__link">
+    lshw
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lsmod" class="md-nav__link">
+    lsmod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insmod-or-modprobe" class="md-nav__link">
+    insmod (or modprobe)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rsync" class="md-nav__link">
+    rsync
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    export
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set" class="md-nav__link">
+    set
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#umask" class="md-nav__link">
+    umask
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduce-or-shrink-the-size-of-the-lvm-partition" class="md-nav__link">
+    Reduce or shrink the size of the LVM partition?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repquota" class="md-nav__link">
+    repquota
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#different-types-of-modes-used-in-vi" class="md-nav__link">
+    Different types of modes used in VI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking-specific" class="md-nav__link">
+    Networking Specific
+  </a>
+  
+    <nav class="md-nav" aria-label="Networking Specific">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh-copy-id" class="md-nav__link">
+    ssh-copy-id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-keygen" class="md-nav__link">
+    ssh-keygen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip" class="md-nav__link">
+    ip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethtool" class="md-nav__link">
+    ethtool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restart-networking" class="md-nav__link">
+    Restart Networking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-status" class="md-nav__link">
+    Network Status
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#netplan" class="md-nav__link">
+    Netplan
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Interview Questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20Networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20OS%20Internals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux OS Internals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Load%20Balancers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SRE%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SRE Interview Questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSH/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Systems%20Design%20Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Systems Design Template
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Troubleshooting%20via%20Metrics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting via Metrics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unix%20Processes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux/Unix Processes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../What%20happens%20when%20you%20type%20google.com%20into%20a%20browser/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What happens when you type "google.com" into a browser?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#clis" class="md-nav__link">
+    CLIs
+  </a>
+  
+    <nav class="md-nav" aria-label="CLIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#netstat" class="md-nav__link">
+    netstat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ping" class="md-nav__link">
+    ping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#du" class="md-nav__link">
+    du
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdisk" class="md-nav__link">
+    fdisk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wc" class="md-nav__link">
+    wc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grep" class="md-nav__link">
+    grep
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#env" class="md-nav__link">
+    env
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pwd" class="md-nav__link">
+    pwd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-new-user-and-set-password" class="md-nav__link">
+    Add new user and set password
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-memory" class="md-nav__link">
+    Check memory
+  </a>
+  
+    <nav class="md-nav" aria-label="Check memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vmstat" class="md-nav__link">
+    vmstat
+  </a>
+  
+    <nav class="md-nav" aria-label="vmstat">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buffers-vs-cache" class="md-nav__link">
+    Buffers vs Cache
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipe" class="md-nav__link">
+    pipe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unmask" class="md-nav__link">
+    unmask
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dmesg" class="md-nav__link">
+    dmesg
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updatedb" class="md-nav__link">
+    updatedb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-line-of-bash-script" class="md-nav__link">
+    First Line of Bash Script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lspci" class="md-nav__link">
+    lspci
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lshw" class="md-nav__link">
+    lshw
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lsmod" class="md-nav__link">
+    lsmod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insmod-or-modprobe" class="md-nav__link">
+    insmod (or modprobe)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rsync" class="md-nav__link">
+    rsync
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    export
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set" class="md-nav__link">
+    set
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#umask" class="md-nav__link">
+    umask
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduce-or-shrink-the-size-of-the-lvm-partition" class="md-nav__link">
+    Reduce or shrink the size of the LVM partition?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repquota" class="md-nav__link">
+    repquota
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#different-types-of-modes-used-in-vi" class="md-nav__link">
+    Different types of modes used in VI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking-specific" class="md-nav__link">
+    Networking Specific
+  </a>
+  
+    <nav class="md-nav" aria-label="Networking Specific">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh-copy-id" class="md-nav__link">
+    ssh-copy-id
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-keygen" class="md-nav__link">
+    ssh-keygen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip" class="md-nav__link">
+    ip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ethtool" class="md-nav__link">
+    ethtool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restart-networking" class="md-nav__link">
+    Restart Networking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-status" class="md-nav__link">
+    Network Status
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#netplan" class="md-nav__link">
+    Netplan
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="linux-commands">Linux Commands<a class="headerlink" href="#linux-commands" title="Permanent link">&para;</a></h1>
+<h2 id="clis">CLIs<a class="headerlink" href="#clis" title="Permanent link">&para;</a></h2>
+<h3 id="netstat">netstat<a class="headerlink" href="#netstat" title="Permanent link">&para;</a></h3>
+<p>Networking tool being used for troubleshooting and configuration and used to display all network connections on a system. It simply provides a way to check whether various aspects of TCP/IP are working and what connections are present.</p>
+<p>Check all listening ports
+<code>netstat -ntlp</code>
+ </p>
+<h3 id="ping">ping<a class="headerlink" href="#ping" title="Permanent link">&para;</a></h3>
+<p>Check connection status between source and destination.  Useful for name resolution, too.</p>
+<h3 id="du">du<a class="headerlink" href="#du" title="Permanent link">&para;</a></h3>
+<p>Check size of a directory
+<code>du -sh /var/log/*</code></p>
+<h3 id="fdisk">fdisk<a class="headerlink" href="#fdisk" title="Permanent link">&para;</a></h3>
+<p>Create partitions</p>
+<h3 id="wc">wc<a class="headerlink" href="#wc" title="Permanent link">&para;</a></h3>
+<p>Count number of characters or lines in a file</p>
+<h3 id="grep">grep<a class="headerlink" href="#grep" title="Permanent link">&para;</a></h3>
+<p>Search for a string in file(s)</p>
+<h3 id="env">env<a class="headerlink" href="#env" title="Permanent link">&para;</a></h3>
+<p>Print list of environment variables.  Can also be used to launch programs in different enviroments without modifying the current one.</p>
+<h3 id="pwd">pwd<a class="headerlink" href="#pwd" title="Permanent link">&para;</a></h3>
+<p>Show path</p>
+<h3 id="add-new-user-and-set-password">Add new user and set password<a class="headerlink" href="#add-new-user-and-set-password" title="Permanent link">&para;</a></h3>
+<p><code>useradd smith; passwd smith</code></p>
+<h3 id="check-memory">Check memory<a class="headerlink" href="#check-memory" title="Permanent link">&para;</a></h3>
+<p>The command used mostly to check memory status in Linux is “free”. Other commands that can be used are given below: 
+-   <strong>“cat” command:</strong> It can be used to show or display Linux memory information. 
+    - <code>cat /proc/meminfo</code>
+-   <strong>“vmstat” command:</strong> It can be used to report statistics of virtual memory. 
+-   <strong>“top” command:</strong> It can be used to check the usage of memory. 
+-   <strong>“htop” command:</strong> It can be used to find the memory load of each process.</p>
+<h4 id="vmstat">vmstat<a class="headerlink" href="#vmstat" title="Permanent link">&para;</a></h4>
+<pre><code>Procs
+    r: The number of processes waiting for run time.
+    b: The number of processes in uninterruptible sleep.
+Memory
+    swpd: the amount of virtual memory used.
+    free: the amount of idle memory.
+    buff: the amount of memory used as buffers.
+    cache: the amount of memory used as cache.
+    inact: the amount of inactive memory. (-a option)
+    active: the amount of active memory. (-a option)
+Swap
+    si: Amount of memory swapped in from disk (/s).
+    so: Amount of memory swapped to disk (/s).
+IO
+    bi: Blocks received from a block device (blocks/s).
+    bo: Blocks sent to a block device (blocks/s).
+System
+    in: The number of interrupts per second, including the clock.
+    cs: The number of context switches per second.
+CPU
+    These are percentages of total CPU time.
+    us: Time spent running non-kernel code. (user time, including nice time)
+    sy: Time spent running kernel code. (system time)
+    id: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.
+    wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.
+    st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.
+</code></pre>
+<h5 id="buffers-vs-cache">Buffers vs Cache<a class="headerlink" href="#buffers-vs-cache" title="Permanent link">&para;</a></h5>
+<p>Buffers are associated with a specific block device, and cover caching of filesystem metadata as well as tracking in-flight pages. The cache only contains parked file data. That is, the buffers remember what's in directories, what file permissions are, and keep track of what memory is being written from or read to for a particular block device. The cache only contains the contents of the files themselves.</p>
+<h3 id="pipe">pipe<a class="headerlink" href="#pipe" title="Permanent link">&para;</a></h3>
+<p>Basically a form of redirection that is used to send the output of one command to another command for further processing</p>
+<h3 id="unmask">unmask<a class="headerlink" href="#unmask" title="Permanent link">&para;</a></h3>
+<p>Unmask, also known as user file-creation mask, is a Linux command that allows you to set up <strong><em>default permissions</em></strong> for new files and folders that you create. In Linux OS, unmask command is used to set default file and folder permission. It is also used by other commands in Linux like mkdir, tee, touch, etc. that create files and directories.</p>
+<h3 id="dmesg">dmesg<a class="headerlink" href="#dmesg" title="Permanent link">&para;</a></h3>
+<p>View boot logs</p>
+<h3 id="updatedb">updatedb<a class="headerlink" href="#updatedb" title="Permanent link">&para;</a></h3>
+<p>The <strong>updatedb</strong> utility is part of <strong><em>mlocate</em></strong>. It examines the entire file system and accordingly creates the database for the <strong>locate</strong> command</p>
+<h3 id="first-line-of-bash-script">First Line of Bash Script<a class="headerlink" href="#first-line-of-bash-script" title="Permanent link">&para;</a></h3>
+<p><code>!#/bin/bash</code></p>
+<h3 id="lspci">lspci<a class="headerlink" href="#lspci" title="Permanent link">&para;</a></h3>
+<p>List devices and their drivers, physical locations</p>
+<h3 id="lshw">lshw<a class="headerlink" href="#lshw" title="Permanent link">&para;</a></h3>
+<p>List detailed information about hardware configurations as <strong>root</strong> user.  Some flags can be used to see details information about the networking hardware.</p>
+<h3 id="lsmod">lsmod<a class="headerlink" href="#lsmod" title="Permanent link">&para;</a></h3>
+<p>List kernel modules</p>
+<h3 id="insmod-or-modprobe">insmod (or modprobe)<a class="headerlink" href="#insmod-or-modprobe" title="Permanent link">&para;</a></h3>
+<p>Load one kernel module.  Can also use <strong>modprobe</strong> instead</p>
+<h3 id="rsync">rsync<a class="headerlink" href="#rsync" title="Permanent link">&para;</a></h3>
+<p>Transfer files either to or from a remote host</p>
+<h3 id="export">export<a class="headerlink" href="#export" title="Permanent link">&para;</a></h3>
+<p>Marks enviroment variables to be shared in forked processes.  Otherwise, variables only apply to current environment.</p>
+<h3 id="set">set<a class="headerlink" href="#set" title="Permanent link">&para;</a></h3>
+<p>Display, set or unset values of shell attributes and positional parameters.
+Debug script: <code>set -x</code>
+Set positional arguments</p>
+<pre><code>&gt;set red blue green
+&gt;echo $1 $2 $3
+red blue green
+
+#unset 
+&gt;set --
+</code></pre>
+<p>Don't ignore when pipes fail
+<code>set -eo pipefail</code></p>
+<h3 id="umask">umask<a class="headerlink" href="#umask" title="Permanent link">&para;</a></h3>
+<p>unmask stands for user file creation mode. When the user creates any file, it has default file permissions. So unmask will specify few restrictions to the newly created file (it controls the file permissions).</p>
+<h3 id="reduce-or-shrink-the-size-of-the-lvm-partition">Reduce or shrink the size of the LVM partition?<a class="headerlink" href="#reduce-or-shrink-the-size-of-the-lvm-partition" title="Permanent link">&para;</a></h3>
+<p>Below are the logical steps to reduce the size of the LVM partition:
+-   Unmount the file system using the <strong>unmount</strong> command
+-   Use the <strong>resize2fs</strong> command as follows:</p>
+<p><code>resize2fs /dev/mapper/myvg-mylv 10G</code></p>
+<p>Then, use the <strong>lvreduce</strong> command as follows:
+<code>lvreduce -L 10G /dev/mapper/myvg-mylv</code></p>
+<h3 id="repquota">repquota<a class="headerlink" href="#repquota" title="Permanent link">&para;</a></h3>
+<p><em>uncommon question unless you expect many user work spaces</em>
+check the status of a user’s defined quota, along with the disk space and the number of files used.</p>
+<h2 id="different-types-of-modes-used-in-vi">Different types of modes used in VI<a class="headerlink" href="#different-types-of-modes-used-in-vi" title="Permanent link">&para;</a></h2>
+<p><img alt="Pasted image 20220416073730.png" src="../../attachments/Pasted%20image%2020220416073730.png" />
+* Command Mode - from Escape
+* Insert/Edit Mode - from 'i'
+* Execution/Replacement - from ':'</p>
+<h2 id="networking-specific">Networking Specific<a class="headerlink" href="#networking-specific" title="Permanent link">&para;</a></h2>
+<h3 id="ssh-copy-id">ssh-copy-id<a class="headerlink" href="#ssh-copy-id" title="Permanent link">&para;</a></h3>
+<p>Install your public key in a remote machine's authorized_keys.</p>
+<h3 id="ssh-keygen">ssh-keygen<a class="headerlink" href="#ssh-keygen" title="Permanent link">&para;</a></h3>
+<p>Generate ssh keys used for authentication, password-less logins, and other things.</p>
+<h3 id="ip">ip<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h3>
+<p>Identify network interfaces 
+<code>ip a</code></p>
+<p>Add temporary address to device 
+<code>sudo ip addr add 10.102.66.200/24 dev enp0s25</code></p>
+<p>Set link up or down</p>
+<pre><code>ip link set dev enp0s25 up
+ip link set dev enp0s25 down
+</code></pre>
+<p>Add route to interface</p>
+<pre><code>ip route add default via 10.102.66.1
+</code></pre>
+<p>Show route</p>
+<pre><code>ip route show
+</code></pre>
+<h3 id="ethtool">ethtool<a class="headerlink" href="#ethtool" title="Permanent link">&para;</a></h3>
+<p>Displays and changes Ethernet card settings such as auto-negotiation, port speed, duplex mode, and Wake-on-LAN.</p>
+<h3 id="restart-networking">Restart Networking<a class="headerlink" href="#restart-networking" title="Permanent link">&para;</a></h3>
+<pre><code>sudo /etc/init.d/networking restart
+# or
+sudo systemctl restart networking
+</code></pre>
+<h3 id="network-status">Network Status<a class="headerlink" href="#network-status" title="Permanent link">&para;</a></h3>
+<pre><code># sudo /etc/init.d/networking status
+or
+# sudo systemctl status networking
+</code></pre>
+<h2 id="netplan">Netplan<a class="headerlink" href="#netplan" title="Permanent link">&para;</a></h2>
+<p>The way Ubuntu and some others do things</p>
+<p>Apple netplan <code>netplan apply</code></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+    
+  </body>
+</html>

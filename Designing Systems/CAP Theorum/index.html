@@ -1,0 +1,1347 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../Designing%20Data%20Intensive%20Applications/Cliff%20Notes/Cliff%20Notes%20-%20moyano83/">
+      
+      
+        <link rel="next" href="../Distibuted%20System%20Fundamentals/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+    
+    
+      
+        <title>CAP Theorum - Systems Design</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cap-theorum" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Systems Design" class="md-header__button md-logo" aria-label="Systems Design" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Systems Design
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CAP Theorum
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="yellow"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Systems Design" class="md-nav__button md-logo" aria-label="Systems Design" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Systems Design
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Systems Design and Coding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Designing Data Intensive Applications
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Designing Data Intensive Applications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cliff Notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Cliff Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Data%20Intensive%20Applications/Cliff%20Notes/Cliff%20Notes%20-%20Someguy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Designing Data-Intensive Applications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Designing%20Data%20Intensive%20Applications/Cliff%20Notes/Cliff%20Notes%20-%20moyano83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Designing Data Intensive Applications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Designing Systems
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Designing Systems
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    CAP Theorum
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    CAP Theorum
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#important-note" class="md-nav__link">
+    Important Note
+  </a>
+  
+    <nav class="md-nav" aria-label="Important Note">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cp-consistency-and-partition-tolerance" class="md-nav__link">
+    CP - consistency and partition tolerance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ap-availability-and-partition-tolerance" class="md-nav__link">
+    AP - availability and partition tolerance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consistency-patterns" class="md-nav__link">
+    Consistency patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="Consistency patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#weak-consistency" class="md-nav__link">
+    Weak consistency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventual-consistency" class="md-nav__link">
+    Eventual consistency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strong-consistency" class="md-nav__link">
+    Strong consistency
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#availability-patterns" class="md-nav__link">
+    Availability patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="Availability patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fail-over" class="md-nav__link">
+    Fail-over
+  </a>
+  
+    <nav class="md-nav" aria-label="Fail-over">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-passive" class="md-nav__link">
+    Active-passive
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#active-active" class="md-nav__link">
+    Active-active
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages-failover" class="md-nav__link">
+    Disadvantage(s): failover
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databases" class="md-nav__link">
+    Databases
+  </a>
+  
+    <nav class="md-nav" aria-label="Databases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ca-databases" class="md-nav__link">
+    CA databases
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-databases" class="md-nav__link">
+    CP databases
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ap-databases" class="md-nav__link">
+    AP databases
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distibuted%20System%20Fundamentals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Distributed System Fundamentals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How%20to%20Design%20Large%20Scale%20Systems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Design Large Scale Systems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../System%20Design%20Interview%20Steps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Design Interview Steps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specifics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Specifics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Asynchronism/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Asynchronism
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Caching/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Databases/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Databases
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/File%20Systems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Systems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Google%20Systems%20Design%20-%20Code%20Deployment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Systems Design - Code Deployment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/HTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Linux%20Commands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Linux%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Interview Questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Linux%20Networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Linux%20OS%20Internals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux OS Internals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Load%20Balancers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Networking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/SRE%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SRE Interview Questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/SSH/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Systems%20Design%20Template/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Systems Design Template
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Troubleshooting%20via%20Metrics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting via Metrics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/Unix%20Processes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux/Unix Processes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Specifics/What%20happens%20when%20you%20type%20google.com%20into%20a%20browser/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What happens when you type "google.com" into a browser?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#important-note" class="md-nav__link">
+    Important Note
+  </a>
+  
+    <nav class="md-nav" aria-label="Important Note">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cp-consistency-and-partition-tolerance" class="md-nav__link">
+    CP - consistency and partition tolerance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ap-availability-and-partition-tolerance" class="md-nav__link">
+    AP - availability and partition tolerance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consistency-patterns" class="md-nav__link">
+    Consistency patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="Consistency patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#weak-consistency" class="md-nav__link">
+    Weak consistency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventual-consistency" class="md-nav__link">
+    Eventual consistency
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strong-consistency" class="md-nav__link">
+    Strong consistency
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#availability-patterns" class="md-nav__link">
+    Availability patterns
+  </a>
+  
+    <nav class="md-nav" aria-label="Availability patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fail-over" class="md-nav__link">
+    Fail-over
+  </a>
+  
+    <nav class="md-nav" aria-label="Fail-over">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-passive" class="md-nav__link">
+    Active-passive
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#active-active" class="md-nav__link">
+    Active-active
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disadvantages-failover" class="md-nav__link">
+    Disadvantage(s): failover
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databases" class="md-nav__link">
+    Databases
+  </a>
+  
+    <nav class="md-nav" aria-label="Databases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ca-databases" class="md-nav__link">
+    CA databases
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp-databases" class="md-nav__link">
+    CP databases
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ap-databases" class="md-nav__link">
+    AP databases
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="cap-theorum">CAP Theorum<a class="headerlink" href="#cap-theorum" title="Permanent link">&para;</a></h1>
+<p><img alt="Pasted image 20220411202403.png" src="../../attachments/Pasted%20image%2020220411202403.png" /></p>
+<p><img alt="Pasted image 20220411194559.png" src="../../attachments/Pasted%20image%2020220411194559.png" /></p>
+<p>In a distributed computer system, you can only support two of the following guarantees:
+-   <strong>Consistency</strong> - Data is always up-to-date on every read.  Every read receives the most recent write or an error.
+-   <strong>Availability</strong> - Data is always accessible.  Every request receives a response, <strong>without guarantee</strong> that it contains the most recent version of the information
+-   <strong>Partition Tolerance</strong> -  the distributed system continues to operate in the presence of a failure of the network where not all members can reach other members.</p>
+<h2 id="important-note">Important Note<a class="headerlink" href="#important-note" title="Permanent link">&para;</a></h2>
+<p><strong><em>Networks aren't reliable, so you'll need to support partition tolerance. You'll need to make a software tradeoff between consistency and availability.</em></strong></p>
+<h3 id="cp-consistency-and-partition-tolerance">CP - consistency and partition tolerance<a class="headerlink" href="#cp-consistency-and-partition-tolerance" title="Permanent link">&para;</a></h3>
+<p>Waiting for a response from the partitioned node might result in a timeout error. CP is a good choice if your business needs require atomic reads and writes.</p>
+<h3 id="ap-availability-and-partition-tolerance">AP - availability and partition tolerance<a class="headerlink" href="#ap-availability-and-partition-tolerance" title="Permanent link">&para;</a></h3>
+<p>Responses return the most readily available version of the data available on any node, which might not be the latest. Writes might take some time to propagate when the partition is resolved.</p>
+<p>AP is a good choice if the business needs allow for <a href="https://github.com/donnemartin/system-design-primer#eventual-consistency">eventual consistency</a> or when the system needs to continue working despite external errors.</p>
+<h2 id="consistency-patterns">Consistency patterns<a class="headerlink" href="#consistency-patterns" title="Permanent link">&para;</a></h2>
+<p>With multiple copies of the same data, we are faced with options on how to synchronize them so clients have a consistent view of the data. Recall the definition of consistency from the <a href="https://github.com/donnemartin/system-design-primer#cap-theorem">CAP theorem</a> - Every read receives the most recent write or an error.</p>
+<h3 id="weak-consistency">Weak consistency<a class="headerlink" href="#weak-consistency" title="Permanent link">&para;</a></h3>
+<p>After a write, reads may or may not see it. A best effort approach is taken.</p>
+<p>This approach is seen in systems such as memcached. Weak consistency works well in real time use cases such as VoIP, video chat, and realtime multiplayer games. For example, if you are on a phone call and lose reception for a few seconds, when you regain connection you do not hear what was spoken during connection loss.</p>
+<h3 id="eventual-consistency">Eventual consistency<a class="headerlink" href="#eventual-consistency" title="Permanent link">&para;</a></h3>
+<p>After a write, reads will eventually see it (typically within milliseconds). Data is replicated asynchronously.</p>
+<p>This approach is seen in systems such as DNS and email. Eventual consistency works well in highly available systems.</p>
+<h3 id="strong-consistency">Strong consistency<a class="headerlink" href="#strong-consistency" title="Permanent link">&para;</a></h3>
+<p>After a write, reads will see it. Data is replicated synchronously.</p>
+<p>This approach is seen in file systems and RDBMSes. Strong consistency works well in systems that need transactions.</p>
+<h2 id="availability-patterns">Availability patterns<a class="headerlink" href="#availability-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="fail-over">Fail-over<a class="headerlink" href="#fail-over" title="Permanent link">&para;</a></h3>
+<h4 id="active-passive">Active-passive<a class="headerlink" href="#active-passive" title="Permanent link">&para;</a></h4>
+<p>With active-passive fail-over, heartbeats are sent between the active and the passive server on standby. If the heartbeat is interrupted, the passive server takes over the active's IP address and resumes service.</p>
+<p>The length of downtime is determined by whether the passive server is already running in 'hot' standby or whether it needs to start up from 'cold' standby. Only the active server handles traffic.</p>
+<p>Active-passive failover can also be referred to as master-slave failover.</p>
+<h4 id="active-active">Active-active<a class="headerlink" href="#active-active" title="Permanent link">&para;</a></h4>
+<p>In active-active, both servers are managing traffic, spreading the load between them.</p>
+<p>If the servers are public-facing, the DNS would need to know about the public IPs of both servers. If the servers are internal-facing, application logic would need to know about both servers.</p>
+<p>Active-active failover can also be referred to as master-master failover.</p>
+<h3 id="disadvantages-failover">Disadvantage(s): failover<a class="headerlink" href="#disadvantages-failover" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Fail-over adds more hardware and additional complexity.</li>
+<li>There is a potential for loss of data if the active system fails before any newly written data can be replicated to the passive.</li>
+</ul>
+<h2 id="databases">Databases<a class="headerlink" href="#databases" title="Permanent link">&para;</a></h2>
+<h3 id="ca-databases">CA databases<a class="headerlink" href="#ca-databases" title="Permanent link">&para;</a></h3>
+<p>CA databases enable consistency and availability across all nodes. Unfortunately, CA databases <strong>can’t deliver fault tolerance</strong>. In any distributed system, partitions are bound to happen, which means this type of database isn’t a very practical choice. That being said, you still can find a CA database if you need one. Some <a href="https://www.educative.io/blog/relational-database-deep-dive"><strong>relational databases</strong></a>, such as <a href="https://www.educative.io/blog/mongodb-versus-postgresql-databases">PostgreSQL</a>, allow for consistency and availability. You can deploy them to nodes using replication.</p>
+<h3 id="cp-databases">CP databases<a class="headerlink" href="#cp-databases" title="Permanent link">&para;</a></h3>
+<p>CP databases enable consistency and partition tolerance, but not availability. When a partition occurs, the system has to <strong>turn off inconsistent nodes until the partition can be fixed</strong>. <a href="https://www.educative.io/blog/mongodb-with-docker">MongoDB</a> is an example of a CP database. It’s a NoSQL database management system (DBMS) that uses documents for data storage. It’s considered schema-less, which means that it doesn’t require a defined database schema. It’s commonly used in <a href="https://www.educative.io/blog/what-is-big-data">big data</a> and applications running in different locations. The CP system is structured so that there’s only one primary node that receives all of the write requests in a given replica set. Secondary nodes replicate the data in the primary nodes, so if the primary node fails, a secondary node can stand-in.</p>
+<h3 id="ap-databases">AP databases<a class="headerlink" href="#ap-databases" title="Permanent link">&para;</a></h3>
+<p>AP databases enable availability and partition tolerance, but not consistency. In the event of a partition, all nodes are available, but they’re not all updated. For example, if a user tries to access data from a bad node, they <strong>won’t receive the most up-to-date version of the data</strong>. When the partition is eventually resolved, most AP databases will sync the nodes to ensure consistency across them. <strong>Apache Cassandra</strong> is an example of an AP database. It’s a NoSQL database with no primary node, meaning that all of the nodes remain available. Cassandra allows for eventual consistency because users can resync their data right after a partition is resolved.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+    
+  </body>
+</html>
